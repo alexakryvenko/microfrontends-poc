@@ -9,28 +9,31 @@ namespace MicroserviceApi1.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class NewsController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+            "Implementing your API Gateways with Ocelot",
+            "Service discovery in the client side integrating Ocelot with Consul or Eureka",
+            "Caching at the API Gateway tier",
+            "Logging at the API Gateway tier",
+            "Quality of Service (Retries and Circuit breakers) at the API Gateway tier"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<NewsController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public NewsController(ILogger<NewsController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<NewsItem> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Summaries.Select((i, index) => new NewsItem
             {
                 Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
